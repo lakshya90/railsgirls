@@ -13,7 +13,7 @@ class LinksController < ApplicationController
   end
 
   def shorten
-    link = Link.where(:uuid => params[:id]).first
+    link = Link.where(:uuid => params[:uuid]).first
     redirect_to link.in_url
   end
 
@@ -30,17 +30,22 @@ class LinksController < ApplicationController
   # POST /links
   # POST /links.json
   def create
-    l = SecureRandom.hex(4)
+    uuid = SecureRandom.hex(4)
     @link = Link.new(link_params)
-    @link.uuid = l
+    @link.uuid = uuid
+
     if @link.save
       redirect_to @link
+    else
+      render :new
     end
   end
 
   # PATCH/PUT /links/1
   # PATCH/PUT /links/1.json
   def update
+
+
     respond_to do |format|
       if @link.update(link_params)
         format.html { redirect_to @link, notice: 'Link was successfully updated.' }
