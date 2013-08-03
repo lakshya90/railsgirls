@@ -1,6 +1,10 @@
 ShortenUrl::Application.routes.draw do
+  get "home/landing"
   resources :links
   get "links/shorten/:uuid" => "links#shorten"
+
+  get "/" => "home#landing"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
